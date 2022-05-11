@@ -282,3 +282,13 @@ note' f = maybe' (Left <<< f) Right
 -- | ```
 hush :: forall a b. Either a b -> Maybe b
 hush = either (const Nothing) Just
+
+-- | Turns an `Either` into a `Maybe`, by throwing eventual `Right` values away and converting
+-- | them into `Nothing`. `Left` values get turned into `Just`s.
+-- |
+-- | ```purescript
+-- | blush (Left "ParseError") = Just "Parse Error"
+-- | blush (Right 42) = Nothing
+-- | ```
+blush :: forall a b. Either a b -> Maybe b
+blush = either Just (const Nothing)
